@@ -90,10 +90,57 @@ export class BookingsService {
     return booking;
   }
 
-  // async remove(id: number) {
-  //   const result = await this.bookingsRepository.delete(id);
-  //   if (result.affected === 0) {
-  //     throw new NotFoundException(`Booking with ${id} not found`);
-  //   }
+  async getTopUsers(
+    period: 'day' | 'week' | 'month',
+    year: number,
+    month: number,
+    day: number,
+  ): Promise<{ user_id: string; place: number; bookings_count: number }[]> {
+    let startDate: Date;
+    let endDate: Date;
+
+    switch (period) {
+      case 'day':
+        if (day === undefined) throw new BadRequestException('Day is required');
+        startDate = new Date(year, month - 1, day);
+        endDate = new Date(year, month - 1, day + 1);
+        break;
+      case 'week':
+        if (day === undefined || month === undefined)
+          throw new BadRequestException('Day and month are required');
+        startDate = new Date(year, month - 1, day - 6);
+        endDate = new Date(year, month - 1, day + 1);
+        break;
+      case 'month':
+        startDate = new Date(year, month - 1, 1);
+        endDate = new Date(year, month, 0);
+        break;
+      default:
+        throw new BadRequestException('Invalid period');
+    }
+
+    const results = await this.bookingsRepository
+      .createQueryBuilder('booking')
+      .select('booking.user_id', 'user_id')
+      .addSelect('COUNT(booking.id)', 'bookings_count')
+      .where('booking.created_at >= :startDate', { startDate })
+      .andWhere('booking.created_at < :endDate', { endDate })
+      .groupBy('booking.user_id')
+      .orderBy('bookings_count', 'DESC')
+      .limit(10)
+      .getRawMany();
+
+    return results.map((row, index) => ({
+      user_id: row.user_id as string,
+      place: index + 1,
+      bookings_count: parseInt(row.bookings_count as string, 10),
+    }));
+  }
+
+  // return this.bookingsRepository.count({
+  //   where: {
+  //     created_at: MoreThanOrEqual(forMonth),
+  //   },
+  // });
   // }
 }
