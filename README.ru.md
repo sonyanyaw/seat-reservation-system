@@ -45,18 +45,19 @@ npm run start:dev
 ## API
 
 ### events
--POST /events                        Создать новое мероприятие
--GET /events                         Получить список всех мероприятий
--GET /events/:id                     Получить мероприятие по ID
--PATCH /events/:id                   Обновить мероприятие
--DELETE /events/:id                  Удалить мероприятие
+- POST /events                        Создать новое мероприятие
+- GET /events                         Получить список всех мероприятий
+- GET /events/:id                     Получить мероприятие по ID
+- PATCH /events/:id                   Обновить мероприятие
+- DELETE /events/:id                  Удалить мероприятие
 
 ### bookings
--POST /api/bookings/reserve          Забронировать место
--GET /api/bookings                   Все бронирования
--GET /api/bookings/user?user_id=...  Бронирования пользователя
--GET /api/bookings/event/:event_id   Бронирования события
--GET /api/bookings/:id               Бронирование по id
+- POST /api/bookings/reserve          Забронировать место
+- GET /api/bookings                   Все бронирования
+- GET /api/bookings/user?user_id=...  Бронирования пользователя
+- GET /api/bookings/event/:event_id   Бронирования события
+- GET /api/bookings/:id               Бронирование по id
+- GET /api/bookings/top_users         Топ пользователей по бронированиям (фильтрация: день/неделя/месяц)
 
 ### Пример запроса на бронирование
 ```http
@@ -73,22 +74,17 @@ POST /api/bookings/reserve
 
 Таблица events:
 
--id (SERIAL PRIMARY KEY)
-
--name (VARCHAR)
-
--total_seats (INT)
+- id (SERIAL PRIMARY KEY)
+- name (VARCHAR)
+- total_seats (INT)
      
 
 Таблица bookings:
 
--id (SERIAL PRIMARY KEY)  
-
--event_id (INT) 
-
--user_id (VARCHAR)
-
--created_at (TIMESTAMP)
+- id (SERIAL PRIMARY KEY)  
+- event_id (INT) 
+- user_id (VARCHAR)
+- created_at (TIMESTAMP)
      
 
 <p align="center">

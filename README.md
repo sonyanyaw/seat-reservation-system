@@ -46,19 +46,19 @@ npm run start:dev
 ## API Endpoints
 
 ### events
--POST /events                        Create a new event  
--GET /events                         Get a list of all events  
--GET /events/:id                     Get an event by ID  
--PATCH /events/:id                   Update an event 
--DELETE /events/:id                  Delete an event
+- POST /events                        Create a new event  
+- GET /events                         Get a list of all events  
+- GET /events/:id                     Get an event by ID  
+- PATCH /events/:id                   Update an event 
+- DELETE /events/:id                  Delete an event
 
 ### bookings
--POST /api/bookings/reserve          Reserve a seat  
--GET /api/bookings                   Get all bookings
--GET /api/bookings/user?user_id=...  Get user’s bookings  
--GET /api/bookings/event/:event_id   Get bookings for an event  
--GET /api/bookings/booking/:id       Get a booking by ID
--GET /api/bookings/top-users         Get top users with period filtering (day, week, month)
+- POST /api/bookings/reserve          Reserve a seat  
+- GET /api/bookings                   Get all bookings
+- GET /api/bookings/user?user_id=...  Get user’s bookings  
+- GET /api/bookings/event/:event_id   Get bookings for an event  
+- GET /api/bookings/booking/:id       Get a booking by ID
+- GET /api/bookings/top-users         Get top users with period filtering (day, week, month)
 
 ### Example
 ```http
@@ -75,17 +75,17 @@ Database Schema
 
 Table events:
 
--id (SERIAL PRIMARY KEY)
--name (VARCHAR)
--total_seats (INT)
+- id (SERIAL PRIMARY KEY)
+- name (VARCHAR)
+- total_seats (INT)
      
 
 Table bookings:
 
--id (SERIAL PRIMARY KEY)  
--event_id (INT) 
--user_id (VARCHAR)
--created_at (TIMESTAMP)
+- id (SERIAL PRIMARY KEY)  
+- event_id (INT) 
+- user_id (VARCHAR)
+- created_at (TIMESTAMP)
      
 
 <p align="center">
