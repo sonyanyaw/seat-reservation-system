@@ -42,7 +42,7 @@ export class BookingsController {
     return this.bookingsService.findByEventId(event_id);
   }
 
-  @Get('bookings/:id')
+  @Get('booking/:id')
   @ApiOperation({ summary: 'Получить бронирование по id' })
   FindOne(@Param('id', ParseIntPipe) id: number) {
     return this.bookingsService.findOne(id);
