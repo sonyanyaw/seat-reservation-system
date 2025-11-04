@@ -1,36 +1,35 @@
-[Читать на русском](./README.ru.md)
+[Read in english](./README.md)
 
 # Seat Reservation System
 
-A backend API for reserving seats at events.
+API для бронирования мест на мероприятия.
 
-## Features
+## Основные возможности
 
-- Reserve a seat for an event (`POST /api/bookings/reserve`)
+-Бронирование места на событие (POST /api/bookings/reserve)
+ 
+-Проверка существования события
 
-- Validate event existence
+-Запрет повторного бронирования одним пользователем
 
-- Prevent duplicate reservations by the same user
+-Контроль лимита мест (с защитой от перебронирования)
 
-- Enforce seat limits with protection against overbooking
+-Получение списка бронирований (всех, по пользователю, по событию)
 
-- Retrieve booking lists (all, by user, by event)
+## Технологии 
 
+-Backend: NestJS, TypeScript
+-База данных: PostgreSQL + TypeORM
+-Безопасность данных: транзакции с пессимистической блокировкой
+-Архитектура: модульная, готова к выносу в микросервисы
 
-## Technologies
-
-- **Backend**: NestJS (TypeScript)
-- **Database**: PostgreSQL + TypeORM
-- **Data Safety**: Database transactions with pessimistic locking
-- **Architecture**: Modular, ready to be extracted into microservices
-
-## Installation
+## Запуск 
 
 ### 1. Установка зависимости: 
 ```bash
 npm install
 ```
-### 2. Environment Variables:
+### 2. Настройка .env:
 ```bash
 DB_HOST=localhost
 DB_PORT=5432
@@ -38,29 +37,28 @@ DB_USERNAME=postgres
 DB_PASSWORD=your_password
 DB_NAME=seat_reservation
 ```
-### 3. Running the Application:
+### 3. Запуск приложения:
 ```bash
 npm run start:dev
 ```
 
-## API Endpoints
+## API
 
 ### events
--POST /events                        Create a new event  
--GET /events                         Get a list of all events  
--GET /events/:id                     Get an event by ID  
--PATCH /events/:id                   Update an event 
--DELETE /events/:id                  Delete an event
+-POST /events                        Создать новое мероприятие
+-GET /events                         Получить список всех мероприятий
+-GET /events/:id                     Получить мероприятие по ID
+-PATCH /events/:id                   Обновить мероприятие
+-DELETE /events/:id                  Удалить мероприятие
 
 ### bookings
--POST /api/bookings/reserve          Reserve a seat  
--GET /api/bookings                   Get all bookings
--GET /api/bookings/user?user_id=...  Get user’s bookings  
--GET /api/bookings/event/:event_id   Get bookings for an event  
--GET /api/bookings/booking/:id       Get a booking by ID
--GET /api/bookings/top-users         Get top users with period filtering (day, week, month)
+-POST /api/bookings/reserve          Забронировать место
+-GET /api/bookings                   Все бронирования
+-GET /api/bookings/user?user_id=...  Бронирования пользователя
+-GET /api/bookings/event/:event_id   Бронирования события
+-GET /api/bookings/:id               Бронирование по id
 
-### Example
+### Пример запроса на бронирование
 ```http
 POST /api/bookings/reserve
 ```
@@ -71,20 +69,25 @@ POST /api/bookings/reserve
 }
 ```
 
-Database Schema
+Структура базы данных 
 
-Table events:
+Таблица events:
 
 -id (SERIAL PRIMARY KEY)
+
 -name (VARCHAR)
+
 -total_seats (INT)
      
 
-Table bookings:
+Таблица bookings:
 
 -id (SERIAL PRIMARY KEY)  
+
 -event_id (INT) 
+
 -user_id (VARCHAR)
+
 -created_at (TIMESTAMP)
      
 
